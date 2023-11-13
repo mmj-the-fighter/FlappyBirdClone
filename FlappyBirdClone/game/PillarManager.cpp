@@ -99,34 +99,21 @@ void PillarManager::ResetPillars()
 
 void PillarManager::Move(swr_sdl_context* ctx)
 {
-	int i = 0;
-
 	auto iterator = pillars.begin();
 	Pillar* pillar = *iterator;
-	bool isFirstPillarInsertedToBack = false;
 	if (pillar->IsPillarLeftOfScreen()) {
 		Pillar* pillarBack = pillars.back();
 		pillar->MakePillar();
 		pillar->pillarTopX = pillar->pillarBottomX = pillarBack->pillarTopX + 8 * birdHeight;
 		pillars.pop_front();
 		pillars.push_back(pillar);
-		isFirstPillarInsertedToBack = true;
 	}
-	else{
-		isFirstPillarInsertedToBack = false;
-		pillar->Move(ctx);
-	}
-
 	auto iterator2 = pillars.begin();
-	if (!isFirstPillarInsertedToBack) {
-		++iterator2;
-	}
 	while (iterator2 != pillars.end()) {
 		Pillar* pillar = *iterator2;
 		pillar->Move(ctx);
 		++iterator2;
 	}
-
 }
 
 void PillarManager::Display()
