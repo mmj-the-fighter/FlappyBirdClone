@@ -76,7 +76,7 @@ void PillarManager::GeneratePillars()
 		pillar->pillarPassageId = i;
 		pillar->SetTopPillarImage(pillarTopImage, pillarTopImageWidth, pillarTopImageHeight);
 		pillar->SetBottomPillarImage(pillarBottomImage, pillarBottomImageWidth, pillarBottomImageHeight);
-		pillar->SetChromaKey(0,255,0,255);
+		pillar->SetChromaKey(chromaKey.r, chromaKey.g, chromaKey.b, chromaKey.a);
 		pillar->SetCollisionImageMasks(collisionImageMaskTopPillar, collisionImageMaskBottomPillar);
 		pillar->SetBird(bird);
 		pillar->MakePillar();
