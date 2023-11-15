@@ -1,7 +1,7 @@
 #ifndef _PILLARMANAGER_H_
 #define _PILLARMANAGER_H_
 
-#include <deque>
+#include <vector>
 #include "../swr/swr_sdl_context.h"
 #include "CollisionState.h"
 #include "CollisionUtils.h"
@@ -27,6 +27,7 @@ private:
 	swr_color chromaKey;
 	Bird *bird;
 	int birdHeight;
+	int birdWidth;
 	int pillarTopImageWidth;
 	int pillarTopImageHeight;
 	int pillarBottomImageWidth;
@@ -35,9 +36,9 @@ private:
 	unsigned char* pillarBottomImage;
 	unsigned char* collisionImageMaskTopPillar;
 	unsigned char* collisionImageMaskBottomPillar;
-	std::deque<Pillar*> pillars;
+	std::vector<Pillar*> pillars;
+	int leftMostPillarIndex;
+	int rightMostPillarIndex;
 };
 
 
-
-#endif
