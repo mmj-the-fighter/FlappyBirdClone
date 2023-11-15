@@ -4,6 +4,8 @@
 
 #include "PillarManager.h"
 #include "Game.h"
+#define MAX_PILLAR_COUNT 4
+#define MAX_INTER_PILLAR_DISTANCE_MULTIPLIER 8
 
 PillarManager::PillarManager()
 {
@@ -37,6 +39,7 @@ void PillarManager::SetBird(Bird* b)
 {
 	bird = b;
 	birdHeight = b->height;
+	birdWidth = b->width;
 }
 
 void PillarManager::SetChromaKey(int red, int green, int blue, int alpha)
@@ -71,19 +74,24 @@ void PillarManager::CreateMaskImages()
 
 void PillarManager::GeneratePillars()
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < MAX_PILLAR_COUNT; i++) {
 		Pillar * pillar = new Pillar;
 		pillar->pillarPassageId = i;
 		pillar->SetTopPillarImage(pillarTopImage, pillarTopImageWidth, pillarTopImageHeight);
 		pillar->SetBottomPillarImage(pillarBottomImage, pillarBottomImageWidth, pillarBottomImageHeight);
-		pillar->SetChromaKey(chromaKey.r, chromaKey.g, chromaKey.b, chromaKey.a);
+		pillar->SetChromaKey(chromaKey.r, chromaKey.g ,chromaKey.b, chromaKey.a);
 		pillar->SetCollisionImageMasks(collisionImageMaskTopPillar, collisionImageMaskBottomPillar);
 		pillar->SetBird(bird);
 		pillar->MakePillar();
 		pillar->velX = MAX_PILLAR_VELOCITY;
-		pillar->pillarTopX = pillar->pillarBottomX = GAME_RESOLUTION_X + i * (8 * birdHeight);
+		pillar->pillarTopX = 
+			pillar->pillarBottomX = 
+			GAME_RESOLUTION_X + 
+			i * (MAX_INTER_PILLAR_DISTANCE_MULTIPLIER * birdWidth);
 		pillars.push_back(pillar);
 	}
+	leftMostPillarIndex = 0;
+	rightMostPillarIndex = MAX_PILLAR_COUNT - 1;
 }
 
 
@@ -92,27 +100,31 @@ void PillarManager::ResetPillars()
 	int i = 0;
 	for (auto& pillar : pillars) {
 		pillar->MakePillar();
-		pillar->pillarTopX = pillar->pillarBottomX = GAME_RESOLUTION_X + i * (8 * birdHeight);
+		pillar->pillarTopX = 
+			pillar->pillarBottomX = 
+			GAME_RESOLUTION_X + 
+			i * (MAX_INTER_PILLAR_DISTANCE_MULTIPLIER * birdWidth);
 		++i;
 	}
+	leftMostPillarIndex = 0;
+	rightMostPillarIndex = MAX_PILLAR_COUNT - 1;
 }
 
 void PillarManager::Move(swr_sdl_context* ctx)
 {
-	auto iterator = pillars.begin();
-	Pillar* pillar = *iterator;
-	if (pillar->IsPillarLeftOfScreen()) {
-		Pillar* pillarBack = pillars.back();
-		pillar->MakePillar();
-		pillar->pillarTopX = pillar->pillarBottomX = pillarBack->pillarTopX + 8 * birdHeight;
-		pillars.pop_front();
-		pillars.push_back(pillar);
+	Pillar *leftMostPillar = pillars[leftMostPillarIndex];
+	if (leftMostPillar->IsPillarLeftOfScreen()){
+		leftMostPillar->MakePillar();
+		leftMostPillar->pillarTopX = 
+		leftMostPillar->pillarBottomX = 
+		pillars[rightMostPillarIndex]->pillarTopX + 
+		MAX_INTER_PILLAR_DISTANCE_MULTIPLIER * birdWidth;
+		rightMostPillarIndex = leftMostPillarIndex;
+		leftMostPillarIndex = (leftMostPillarIndex + 1) % MAX_PILLAR_COUNT;
 	}
-	auto iterator2 = pillars.begin();
-	while (iterator2 != pillars.end()) {
-		Pillar* pillar = *iterator2;
+	
+	for (auto& pillar : pillars) {
 		pillar->Move(ctx);
-		++iterator2;
 	}
 }
 
@@ -129,10 +141,13 @@ void PillarManager::CheckCollisionOfBirdWithPillars(CollisionState* collisionSta
 {
 	collisionState->location = HITNOTHING;
 	collisionState->pillarPassageId = -1;
-	for (auto& pillar : pillars) {
+	int count = MAX_PILLAR_COUNT;
+	int index = leftMostPillarIndex;
+	while (collisionState->location == HITNOTHING && --count >= 0) {
+		Pillar* pillar = pillars[index];
 		if (pillar->IsBirdNear()) {
 			pillar->CheckCollisionWithBird(collisionState);
-			break;
 		}
+		index = (index + 1) % MAX_PILLAR_COUNT;
 	}
 }
