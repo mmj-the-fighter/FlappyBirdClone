@@ -141,7 +141,8 @@ void PillarManager::CheckCollisionOfBirdWithPillars(CollisionState* collisionSta
 {
 	collisionState->location = HITNOTHING;
 	collisionState->pillarPassageId = -1;
-	int count = MAX_PILLAR_COUNT;
+	//int count = MAX_PILLAR_COUNT;
+	int count = 2;
 	int index = leftMostPillarIndex;
 	while (collisionState->location == HITNOTHING && --count >= 0) {
 		Pillar* pillar = pillars[index];
