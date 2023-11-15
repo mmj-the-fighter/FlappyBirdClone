@@ -80,7 +80,7 @@ bool Pillar::IsPillarLeftOfScreen()
 bool Pillar::IsBirdNear()
 {
 	int dx = pillarTopX - bird->x;
-	return abs(dx) <= 2 * bird->width;
+	return abs(dx) <= (pillarTopImageWidth + bird->width);
 }
 
 void Pillar::Display()
