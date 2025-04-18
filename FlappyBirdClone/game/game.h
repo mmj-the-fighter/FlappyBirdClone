@@ -10,11 +10,13 @@ class Game
 public:
 	Game() {}
 	~Game() {}
-	void Init(spn::SpinachCore* sc) {}
+	void Init(spn::SpinachCore* sc);
 	void Restart() {}
-	void UpdateAndRender(spn::Canvas* canvas) {}
-	void HandleInput(const SDL_Event* sdlEvent) {}
+	void UpdateAndRender(spn::Canvas* canvas);
+	void HandleInput(const SDL_Event* sdlEvent);
 private:
+	void OnLmbDown();
+	void OnRmbDown();
 	bool gameOver;
 	int ww, wh;
 };

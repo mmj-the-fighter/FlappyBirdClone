@@ -5,14 +5,14 @@
 
 int main() {
 	Game game;
-	spn::SpinachCore sc(640, 480);
+	spn::SpinachCore sc(800, 600);
 	if (sc.IsInitFailed()) {
 		std::cout << "initialization failed with error "
 			<< sc.GetInitializationResult()
 			<< std::endl;
 		return 1;
 	}
-	sc.SetWindowTitle("Flappy Bird Clone");
+	//sc.SetWindowTitle("Flappy Bird Clone");
 	game.Init(&sc);
 	sc.SetUpdateAndRenderHandler(
 		std::bind(&Game::UpdateAndRender,
