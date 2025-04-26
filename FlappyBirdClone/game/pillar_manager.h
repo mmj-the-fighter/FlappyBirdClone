@@ -6,7 +6,7 @@
 
 #include <vector>
 #include "pillar.h"
-
+#include "collision_state.h"
 
 class PillarManager
 {
@@ -17,7 +17,7 @@ public:
 	void Reset();
 	void Move(spn::Canvas* canvas);
 	void Display(spn::Canvas* canvas);
-	
+	void CheckCollisionWithBird(CollisionState* collisionState);
 private:
 	void GeneratePillars();
 	Bird *bird;

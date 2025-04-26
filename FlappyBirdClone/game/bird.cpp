@@ -52,7 +52,7 @@ bool Bird::IsOutOfScreen()
 void Bird::Display(spn::Canvas* canvas)
 {
 	canvas->DrawImageChromaKeyed(&image, x, y, chromaR, chromaG, chromaB);
-	DrawCollider(canvas, x, y);
+	//DrawCollider(canvas, x, y);
 }
 
 void Bird::DrawCollider(spn::Canvas* canvas, int x, int y) 
@@ -87,8 +87,7 @@ void Bird::Init(int worldWt, int worldHt)
 	chromaR = 0;
 	chromaG = 255;
 	chromaB = 0;
-	std::string pathStr{ "res/game/bird.ppm" };
-	image.CreateFromPpmRaw(pathStr);
+	image.CreateFromPpmRaw("res/game/bird.ppm");
 	width = image.GetCanvas()->GetWidth();
 	height = image.GetCanvas()->GetHeight();
 	//CreateMask();

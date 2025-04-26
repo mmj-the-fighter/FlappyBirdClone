@@ -1,5 +1,6 @@
 #include "pillar_manager.h"
 #include "game.h"
+
 #define MAX_PILLAR_COUNT 4
 #define MAX_INTER_PILLAR_DISTANCE_MULTIPLIER 8
 
@@ -90,3 +91,17 @@ void PillarManager::Display(spn::Canvas* canvas)
 	}
 }
 
+void PillarManager::CheckCollisionWithBird(CollisionState* collisionState) {
+	collisionState->location = HITNOTHING;
+	
+	int count = 2;
+	int index = leftMostPillarIndex;
+	while (collisionState->location == HITNOTHING && --count >= 0) {
+		Pillar* pillar = pillars[index];
+		collisionState->pillarPassageId = index;
+		if (pillar->IsBirdNear()) {
+			pillar->CheckCollisionWithBird(collisionState);
+		}
+		index = (index + 1) % MAX_PILLAR_COUNT;
+	}
+}

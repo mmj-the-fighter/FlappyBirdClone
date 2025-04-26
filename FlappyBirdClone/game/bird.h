@@ -16,10 +16,11 @@ public:
 	void Init(int worldWt, int worldHt);
 	void Reset();
 	void OnLeftMouseButtonDown();
+	bool IsOutOfScreen();
+
 private:
 	void OnJumpStarted();
 	void OnJumpEnded();
-	bool IsOutOfScreen();	
 	bool jumping;
 	float jumpTime;
 	float jumpAccelY;

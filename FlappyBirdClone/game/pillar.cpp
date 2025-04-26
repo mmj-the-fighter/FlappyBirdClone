@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "pillar.h"
 #include "rng.hpp"
+#include "collision_utils.hpp"
 
 
 Pillar::Pillar(int worldWt, int worldHt):
@@ -70,4 +71,45 @@ void Pillar::Display(spn::Canvas* canvas)
 {
 	canvas->DrawImageChromaKeyed(pillarTopImage, pillarTopX, pillarTopY, chromaR, chromaG, chromaB);
 	canvas->DrawImageChromaKeyed(pillarBottomImage, pillarBottomX, pillarBottomY, chromaR, chromaG, chromaB);
+}
+
+void Pillar::CheckCollisionWithBird(CollisionState* collisionState)
+{
+	bool isCollidedWithTopPillar = CheckCollision(pillarTopX, pillarTopY,
+		pillarTopX + pillarTopImageWidth, pillarTopY + pillarTopImageHeight,
+		bird->x, bird->y,
+		bird->x + bird->width, bird->y + bird->height
+	);
+
+	if (isCollidedWithTopPillar) {
+		collisionState->location = HITPILLAR;
+		return;
+	}
+
+	bool isCollidedWithBottomPillar = CheckCollision(pillarBottomX, pillarBottomY,
+		pillarBottomX + pillarBottomImageWidth, pillarBottomY + pillarBottomImageHeight,
+		bird->x, bird->y,
+		bird->x + bird->width, bird->y + bird->height
+	);
+
+	if (isCollidedWithBottomPillar) {
+		collisionState->location = HITPILLAR;
+		return;
+	}
+
+	bool isCollidedWithPassage = CheckCollision(pillarTopX, 0,
+		pillarTopX + pillarTopImageWidth, wh,
+		bird->x, bird->y,
+		bird->x + bird->width, bird->y + bird->height
+	);
+
+
+	if (isCollidedWithPassage) {
+		collisionState->location = HITPASSAGE;
+		return;
+	}
+
+	collisionState->location = HITNOTHING;
+	return;
+
 }

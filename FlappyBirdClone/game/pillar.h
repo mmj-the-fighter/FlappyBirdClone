@@ -4,6 +4,7 @@
 #include "../spinach/core/spn_canvas.h"
 #include "../spinach/core/spn_image.h"
 #include "bird.h"
+#include "collision_state.h"
 
 #define MAX_PILLAR_VELOCITY 140.0f
 
@@ -21,6 +22,7 @@ public:
 	void SetBird(Bird* b);
 	void SetChromaKey(int red, int green, int blue);
 	void SetPillarImages(spn::Image* topImage, spn::Image* bottomImage);
+	void CheckCollisionWithBird(CollisionState *collisionState);
 
 	spn::Image *pillarTopImage;
 	spn::Image *pillarBottomImage;

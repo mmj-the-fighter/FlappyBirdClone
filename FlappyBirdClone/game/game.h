@@ -6,6 +6,7 @@
 #include "../spinach/core/spn_canvas.h"
 #include "bird.h"
 #include "pillar_manager.h"
+#include "collision_state.h"
 
 class Game
 {
@@ -26,6 +27,10 @@ private:
 	int ww, wh;
 	Bird *bird;
 	PillarManager* pillarManager;
+	CollisionState collisionState;
+	int lastHitPassageId;
+	int score;
+	int highScore;
 };
 
 #endif
