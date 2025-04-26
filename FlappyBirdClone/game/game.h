@@ -4,12 +4,15 @@
 #include <SDL3/SDL.h>
 #include "../spinach/core/spn_core.h"
 #include "../spinach/core/spn_canvas.h"
+#include "bird.h"
 
 class Game
 {
 public:
 	Game() {}
-	~Game() {}
+	~Game() {
+		delete bird;
+	}
 	void Init(spn::SpinachCore* sc);
 	void Restart() {}
 	void UpdateAndRender(spn::Canvas* canvas);
@@ -19,6 +22,7 @@ private:
 	void OnRmbDown();
 	bool gameOver;
 	int ww, wh;
+	Bird *bird;
 };
 
 #endif
