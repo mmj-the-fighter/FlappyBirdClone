@@ -39,6 +39,12 @@
     <ClCompile Include="game\bird.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\pillar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\pillar_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="spinach\common\spn_utils.h">
@@ -66,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\bird.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\pillar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\pillar_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\rng.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

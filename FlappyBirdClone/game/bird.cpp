@@ -2,17 +2,6 @@
 #include "bird.h"
 #include "game.h"
 
-
-Bird::Bird()
-{
-
-}
-
-Bird::~Bird()
-{
-
-}
-
 void Bird::OnJumpStarted()
 {
 	jumping = true;
@@ -66,7 +55,8 @@ void Bird::Display(spn::Canvas* canvas)
 	DrawCollider(canvas, x, y);
 }
 
-void Bird::DrawCollider(spn::Canvas* canvas, int x, int y) {
+void Bird::DrawCollider(spn::Canvas* canvas, int x, int y) 
+{
 	int left = x;
 	int top = y;
 	int right = x + width;
@@ -81,7 +71,6 @@ void Bird::DrawCollider(spn::Canvas* canvas, int x, int y) {
 	canvas->DrawLine(x + width, y, x + width, y + height);
 	canvas->DrawLine(x, y + height, x + width, y + height);
 	canvas->DrawLine(x, y + height, x, y);
-
 }
 
 

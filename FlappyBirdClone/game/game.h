@@ -5,16 +5,18 @@
 #include "../spinach/core/spn_core.h"
 #include "../spinach/core/spn_canvas.h"
 #include "bird.h"
+#include "pillar_manager.h"
 
 class Game
 {
 public:
-	Game() {}
+	Game();
 	~Game() {
 		delete bird;
+		delete pillarManager;
 	}
 	void Init(spn::SpinachCore* sc);
-	void Restart() {}
+	void Restart();
 	void UpdateAndRender(spn::Canvas* canvas);
 	void HandleInput(const SDL_Event* sdlEvent);
 private:
@@ -23,6 +25,7 @@ private:
 	bool gameOver;
 	int ww, wh;
 	Bird *bird;
+	PillarManager* pillarManager;
 };
 
 #endif

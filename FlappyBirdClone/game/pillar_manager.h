@@ -1,0 +1,38 @@
+#ifndef _PILLARMANAGER_H_
+#define _PILLARMANAGER_H_
+
+#include "../spinach/core/spn_canvas.h"
+#include "bird.h"
+
+#include <vector>
+#include "pillar.h"
+
+
+class PillarManager
+{
+public:
+	PillarManager(int worldWt, int worldHt);
+	~PillarManager();
+	void Init(Bird* b);
+	void Reset();
+	void Move(spn::Canvas* canvas);
+	void Display(spn::Canvas* canvas);
+	
+private:
+	void GeneratePillars();
+	Bird *bird;
+	int birdHeight;
+	int birdWidth;
+	spn::Image pillarTopImage;
+	spn::Image pillarBottomImage;
+	std::vector<Pillar*> pillars;
+	int leftMostPillarIndex;
+	int rightMostPillarIndex;
+	int chromaR;
+	int chromaG;
+	int chromaB;
+	int ww;
+	int wh;
+};
+
+#endif

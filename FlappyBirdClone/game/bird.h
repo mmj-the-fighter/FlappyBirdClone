@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef _BIRD_H_
 #define _BIRD_H_
 
@@ -13,17 +11,15 @@
 class Bird
 {
 public:
-	Bird();
-	~Bird();
 	void Move(spn::Canvas* canvas);
 	void Display(spn::Canvas* canvas);
 	void Init(int worldWt, int worldHt);
 	void Reset();
+	void OnLeftMouseButtonDown();
+private:
 	void OnJumpStarted();
 	void OnJumpEnded();
-	void OnLeftMouseButtonDown();
-	bool IsOutOfScreen();
-private:
+	bool IsOutOfScreen();	
 	bool jumping;
 	float jumpTime;
 	float jumpAccelY;

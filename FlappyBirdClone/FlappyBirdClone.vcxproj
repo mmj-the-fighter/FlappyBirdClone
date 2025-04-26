@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClCompile Include="game\bird.cpp" />
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="game\pillar.cpp" />
+    <ClCompile Include="game\pillar_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="spinach\common\spn_utils.cpp" />
     <ClCompile Include="spinach\core\spn_canvas.cpp" />
@@ -142,6 +144,9 @@
   <ItemGroup>
     <ClInclude Include="game\bird.h" />
     <ClInclude Include="game\game.h" />
+    <ClInclude Include="game\pillar.h" />
+    <ClInclude Include="game\pillar_manager.h" />
+    <ClInclude Include="game\rng.hpp" />
     <ClInclude Include="spinach\common\spn_utils.h" />
     <ClInclude Include="spinach\core\spn_canvas.h" />
     <ClInclude Include="spinach\core\spn_core.h" />
